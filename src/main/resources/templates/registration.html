@@ -13,34 +13,51 @@
             <form action="#" autocomplete="off" method="post"
                   role="form" th:action="@{/registration}" th:object="${user}">
                 <div class="form-group">
-                    <label class="alert alert-danger" th:errors="*{name}"
-                           th:if="${#fields.hasErrors('name')}"></label>
-                    <input class="form-control input-lg" placeholder="Name" th:field="*{name}"
-                           type="text"/>
+                    <label class="alert alert-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"/>
+                    <input class="form-control input-lg" placeholder="Name" th:field="*{name}" type="text"/>
                 </div>
                 <div class="form-group">
-                    <label class="alert alert-danger" th:errors="*{lastName}"
-                           th:if="${#fields.hasErrors('lastName')}"></label>
-                    <input class="form-control input-lg" placeholder="Last Name" th:field="*{lastName}"
-                           type="text"/>
+                    <label class="alert alert-danger" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"/>
+                    <input class="form-control input-lg" placeholder="Last Name" th:field="*{lastName}" type="text"/>
                 </div>
                 <div class="form-group">
-                    <label class="alert alert-danger" th:errors="*{email}"
-                           th:if="${#fields.hasErrors('email')}"></label>
-                    <input class="form-control input-lg" placeholder="Email" th:field="*{email}"
-                           type="text"/>
+                    <label class="alert alert-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"/>
+                    <input class="form-control input-lg" placeholder="Email" th:field="*{email}" type="text"/>
                 </div>
                 <div class="form-group">
-                    <label class="alert alert-danger" th:errors="*{password}"
-                           th:if="${#fields.hasErrors('password')}"></label>
-                    <input class="form-control input-lg" placeholder="Password" th:field="*{password}"
-                           type="password"/>
+                    <label class="alert alert-danger" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"/>
+                    <input class="form-control input-lg" placeholder="Password" th:field="*{password}" type="password"/>
                 </div>
                 <div class="form-group">
-                    <label class="alert alert-danger" th:errors="*{username}"
-                           th:if="${#fields.hasErrors('username')}"></label>
-                    <input class="form-control input-lg" placeholder="Username" th:field="*{username}"
-                           type="text"/>
+                    <label class="alert alert-danger" th:errors="*{username}" th:if="${#fields.hasErrors('username')}"/>
+                    <input class="form-control input-lg" placeholder="Username" th:field="*{username}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"/>
+                    <input class="form-control input-lg" placeholder="Phone" th:field="*{phone}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{dniType}" th:if="${#fields.hasErrors('dniType')}"/>
+                    <select class="form-control input-lg" th:field="*{{dniType}}">
+                        <option hidden selected value="">DNI Type</option>
+                        <option th:each="dniType : ${T(la.payu.prototypeshop.model.DocumentType).values()}"
+                                th:selected="${dniType == T(la.payu.prototypeshop.model.DocumentType)}"
+                                th:text="${dniType.displayName}"
+                                th:value="${dniType}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{dni}" th:if="${#fields.hasErrors('dni')}"/>
+                    <input class="form-control input-lg" placeholder="DNI" th:field="*{dni}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{address}" th:if="${#fields.hasErrors('address')}"/>
+                    <input class="form-control input-lg" placeholder="Address" th:field="*{address}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{city}" th:if="${#fields.hasErrors('city')}"/>
+                    <input class="form-control input-lg" placeholder="City" th:field="*{city}" type="text"/>
                 </div>
                 <div class="row">
                     <div class="col-sm-3" style="float: none; margin: 0 auto;">

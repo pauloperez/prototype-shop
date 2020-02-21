@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+<body>
+<div th:replace="/fragments/header :: navbar"/>
+<div class="container">
+    <h1 class="jumbotron">
+        <span sec:authentication="name"></span>'s Purchasing Order
+    </h1>
+    <div class="alert alert-warning" th:if="${payUMessages}" th:utext="${payUMessages}"></div>
+    <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+    <div class="panel-default well" th:each="product : ${order.articles}">
+        <div class="panel-heading">
+            <h1 th:text="${product.name}">Title</h1>
+            <h3 th:text="${product.description}">Description</h3>
+        </div>
+        <div class="row panel-body">
+            <div class="col-md-2" th:inline="text">Price: [[${product.price}]] $</div>
+            <div class="col-md-9" th:inline="text">Quantity: [[${product.quantity}]]</div>
+        </div>
+        <br></br>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form action="#" autocomplete="off" id="checkout" method="post" role="form" th:action="@{/checkout}"
+                  th:object="${order}">
+                <input hidden th:field="*{id}" type="text"/>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{creditCardNumber}"
+                           th:if="${#fields.hasErrors('creditCardNumber')}"/>
+                    <input class="form-control input-lg" placeholder="Credit Card Number"
+                           th:field="*{creditCardNumber}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{creditCardExpirationDate}"
+                           th:if="${#fields.hasErrors('creditCardExpirationDate')}"/>
+                    <input class="form-control input-lg" placeholder="Expiration Date"
+                           th:field="*{creditCardExpirationDate}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{creditCardSecurityCode}"
+                           th:if="${#fields.hasErrors('creditCardSecurityCode')}"/>
+                    <input class="form-control input-lg" placeholder="Security Code"
+                           th:field="*{creditCardSecurityCode}" type="password"/>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{paymentMethod}"
+                           th:if="${#fields.hasErrors('paymentMethod')}"/>
+                    <select class="form-control input-lg" th:field="*{{paymentMethod}}">
+                        <option hidden selected value="">Payment Method</option>
+                        <option th:each="paymentMethod : ${T(com.payu.sdk.model.PaymentMethod).values()}"
+                                th:selected="${paymentMethod == T(com.payu.sdk.model.PaymentMethod)}"
+                                th:text="${paymentMethod.name()}"
+                                th:value="${paymentMethod}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="alert alert-danger" th:errors="*{installments}"
+                           th:if="${#fields.hasErrors('installments')}"/>
+                    <input class="form-control input-lg" min="0"
+                           placeholder="Installments" th:field="*{installments}" type="number"/>
+                </div>
+                <div class="row panel-body">
+                    <h2 class="col-md-9" th:field="*{value}" th:inline="text">Total: [[${order.value}]]</h2>
+                    <input class="btn btn-warning" style="float: none; margin: 0 auto;" type="submit" value="Checkout"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/footer :: footer"/>
+</body>
+</html>

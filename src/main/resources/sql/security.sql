@@ -1,3 +1,9 @@
+--Cleanup
+drop table if exists "public".user_role;
+drop table if exists "public"."role" ;
+drop table if exists "public"."user" ;
+
+--Populate
 create table "public"."user" (
 	user_id bigserial not null,
 	"password" varchar not null,
@@ -5,18 +11,24 @@ create table "public"."user" (
 	username varchar not null,
 	"name" varchar not null,
 	last_name varchar not null,
-	active int4 not null,
+	phone varchar(20) not null,
+	dni_type varchar not null,
+	dni varchar(20) not null,
+	address varchar not null,
+	city varchar(50) not null,
+	active boolean not null default true,
 	constraint user_pk primary key (user_id)
 );
 -- password in plaintext: "password"
-insert into "public"."user" (user_id, password, email, username, name, last_name, active)
-values (1, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'user@mail.com', 'user', 'Name', 'Surname', 1);
--- password in plaintext: "password"
-insert into "public"."user" (user_id, password, email, username, name, last_name, active)
-values (2, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'johndoe@gmail.com', 'johndoe', 'John', 'Doe', 1);
--- password in plaintext: "password"
-insert into "public"."user" (user_id, password, email, username, name, last_name, active)
-values (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name@gmail.com', 'namesurname', 'Name', 'Surname', 1);
+insert into "public"."user" (user_id, password, email, username, name, last_name, phone, dni_type, dni, address, city)
+values
+(1, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'user@mail.com', 'user',  'Name',  'Surname',
+'4111111', 'CC', '987654321', 'San Miguel 123', 'Bogota'),
+(2, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'johndoe@gmail.com', 'johndoe', 'John', 'Doe',
+'3113111111', 'CE', '999999999', 'San Fernando 123', 'Bogota'),
+(3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name@gmail.com', 'namesurname', 'Name', 'Surname',
+'', 'NIT', '8888888888', 'San Carlos 123', 'Bogota')
+;
 
 create table "public"."role" (
 	role_id bigserial not null,

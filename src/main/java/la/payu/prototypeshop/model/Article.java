@@ -6,20 +6,41 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "article")
+public class Article {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "product_id")
+	@Column(name = "article_id")
 	private Long id;
 
 	@Embedded
 	private ProductInfo productInfo;
+
+	@ManyToOne
+	@JoinColumn(name = "order_id", nullable = false)
+	private Order order;
+
+	public Article(Product product, Integer quantity, Order order) {
+
+		productInfo = new ProductInfo();
+		setName(product.getName());
+		setDescription(product.getDescription());
+		setPrice(product.getPrice());
+		setQuantity(quantity);
+		this.order = order;
+	}
+
+	public Article() {
+		//required to jpa
+	}
 
 	public Long getId() {
 
@@ -71,8 +92,17 @@ public class Product {
 		this.productInfo.setPrice(unitPrice);
 	}
 
-	@Override
-	public boolean equals(Object o) {
+	public Order getOrder() {
+
+		return order;
+	}
+
+	public void setOrder(Order order) {
+
+		this.order = order;
+	}
+
+	@Override public boolean equals(Object o) {
 
 		if (this == o) {
 			return true;
@@ -80,15 +110,12 @@ public class Product {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-
-		Product product = (Product) o;
-
-		return id.equals(product.id);
+		Article that = (Article) o;
+		return Objects.equals(id, that.id);
 	}
 
-	@Override
-	public int hashCode() {
+	@Override public int hashCode() {
 
-		return id.hashCode();
+		return Objects.hash(id);
 	}
 }

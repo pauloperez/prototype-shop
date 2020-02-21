@@ -1,5 +1,11 @@
+--Cleanup
+drop table if exists public.article ;
+drop table if exists public."order" ;
+drop table if exists public.product ;
+
+--Populate
 create table public.product (
-	product_id serial not null,
+	product_id bigserial not null,
 	"name" varchar not null,
 	description varchar null,
 	quantity int4 not null,
@@ -27,3 +33,23 @@ INSERT INTO public.product (name, description, quantity, price)
 VALUES ('Leather Wallets', 'Imported Leather Wallets from AUS', 1000, 500.00);
 INSERT INTO public.product (name, description, quantity, price)
 VALUES ('Camera', 'Imported Canon camera from USA', 10, 85000.00);
+
+
+create table public."order" (
+	order_id bigserial not null,
+	status varchar not null,
+	description varchar not null,
+	value numeric not null,
+	constraint order_pk primary key (order_id)
+);
+
+create table public.article (
+	article_id bigserial not null,
+	"name" varchar not null,
+	description varchar null,
+	quantity int4 not null,
+	price numeric not null,
+	order_id int8 not null,
+	constraint article_pk primary key (article_id),
+	CONSTRAINT article_order_fk FOREIGN KEY (order_id) REFERENCES public."order"(order_id)
+);

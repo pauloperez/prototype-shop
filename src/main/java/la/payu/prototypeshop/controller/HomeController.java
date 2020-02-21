@@ -37,10 +37,9 @@ public class HomeController {
         Page<Product> products = productService.findAllProductsOnSale(PageRequest.of(evalPage, 5));
         Pager pager = new Pager(products);
 
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("/home");
         modelAndView.addObject("products", products);
         modelAndView.addObject("pager", pager);
-        modelAndView.setViewName("/home");
         return modelAndView;
     }
 

@@ -11,5 +11,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	Optional<Product> findById(Long id);
 
-	Page<Product> findByQuantityGreaterThan(int minimumQuantity, Pageable pageable);
+	Page<Product> findByProductInfoQuantityGreaterThan(int minimumQuantity, Pageable pageable);
 }

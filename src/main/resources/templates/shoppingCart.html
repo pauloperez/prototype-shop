@@ -20,15 +20,15 @@
             <div class="col-md-2" th:inline="text">Price: [[${product.getKey().price}]] $</div>
             <div class="col-md-9" th:inline="text">Quantity: [[${product.getValue()}]]</div>
             <a class="col-md-1" th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}">
-                <button class="btn btn-primary" th:text="Remove" type="button">Remove</button>
+                <button class="btn btn-danger" th:text="Remove" type="button">Remove</button>
             </a>
         </div>
         <br></br>
     </div>
     <div class="row panel-body">
         <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
-        <a class="col-md-1" th:href="@{'/shoppingCart/checkout'}">
-            <button class="btn btn-danger" th:text="Checkout" type="button">Checkout</button>
+        <a class="col-md-1" th:href="@{'/shoppingCart/purchase'}">
+            <button class="btn btn-success" th:text="Purchase" type="button">Purchase</button>
         </a>
     </div>
 </div>

@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findAllProductsOnSale(Pageable pageable) {
 
-        return productRepository.findByQuantityGreaterThan(0, pageable);
+        return productRepository.findByProductInfoQuantityGreaterThan(0, pageable);
     }
 
     @Override

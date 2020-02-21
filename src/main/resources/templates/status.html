@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+<body>
+<div th:replace="/fragments/header :: navbar"/>
+<div class="container">
+    <h1 class="jumbotron">
+        <span sec:authentication="name"></span>'s Purchased Order
+    </h1>
+    <div class="alert alert-success" th:if="${order.isOk()}" th:inline="text">Purchase has been successfully!!!</div>
+    <div class="alert alert-warning" th:if="${!order.isOk()}" th:inline="text">There's a problem with the transaction
+    </div>
+    <div class="panel-default well" th:each="product : ${order.articles}">
+        <div class="panel-heading">
+            <h1 th:text="${product.name}">Title</h1>
+            <h3 th:text="${product.description}">Description</h3>
+        </div>
+        <div class="row panel-body">
+            <div class="col-md-2" th:inline="text">Price: [[${product.price}]] $</div>
+            <div class="col-md-9" th:inline="text">Quantity: [[${product.quantity}]]</div>
+        </div>
+        <br></br>
+    </div>
+    <div class="row panel-body">
+        <h2 class="col-md-11" th:inline="text">Total: [[${order.value}]]</h2>
+        </a>
+    </div>
+</div>
+<div th:replace="/fragments/footer :: footer"/>
+</body>
+</html>

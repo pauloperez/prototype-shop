@@ -44,7 +44,6 @@ public class UserServiceImp implements UserService {
     public User saveUser(User user) {
         // Encode plaintext password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(1);
         // Set Role to ROLE_USER
         user.setRoles(Collections.singletonList(roleRepository.findByRole(USER_ROLE)));
         return userRepository.saveAndFlush(user);

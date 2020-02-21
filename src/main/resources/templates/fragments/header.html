@@ -18,24 +18,22 @@
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/home}">Shop</a>
             </div>
-            <div class="collapse navbar-collapse navbar-right" id="navbar">
-                <!-- show shoppingCart only if user is not yet authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-                    <li class="active"><a th:href="@{/shoppingCart}">Shopping Cart</a></li>
-                </ul>
-                <!-- show registration only if user is not yet authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
-                    <li class="active"><a th:href="@{/registration}">Registration</a></li>
-                </ul>
-                <!-- show login only if user is not yet authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
-                    <li class="active"><a th:href="@{/login}">Login</a></li>
-                </ul>
-                <!-- show sign out only if user is authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-                    <li class="active"><a th:href="@{/logout}">Sign Out</a></li>
-                </ul>
-            </div>
+            <!-- show shoppingCart only if user is not yet authenticated -->
+            <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                <li class="active"><a th:href="@{/shoppingCart}">Shopping Cart</a></li>
+            </ul>
+            <!-- show registration only if user is not yet authenticated -->
+            <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
+                <li class="active"><a th:href="@{/registration}">Registration</a></li>
+            </ul>
+            <!-- show login only if user is not yet authenticated -->
+            <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
+                <li class="active"><a th:href="@{/login}">Login</a></li>
+            </ul>
+            <!-- show sign out only if user is authenticated -->
+            <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                <li class="active"><a th:href="@{/logout}">Sign Out</a></li>
+            </ul>
         </div>
     </nav>
 </div>
